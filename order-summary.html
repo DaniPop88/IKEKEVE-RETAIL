@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IKEKEVE MARTIA RETAIL | Order Summary & Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IKEKEVE MARTIA RETAIL secure order summary and confirmation for your retail essentials.">
+    <link rel="icon" type="image/png" href="image/FAVICON.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #155a52 0%, #e86b22 110px, #f6f8fa 110px, #f6f8fa 100%);
+        }
+        .summary-wrapper {
+            max-width: 700px;
+            margin: 50px auto 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 36px rgba(21,90,82,0.15), 0 2px 12px rgba(232,107,34,0.10);
+            padding: 0 0 32px 0;
+            overflow: hidden;
+            border: 2.5px solid #e86b22;
+        }
+        .header-bar {
+            background: linear-gradient(180deg, #155a52 0%, #e86b22 100%);
+            color: #fff;
+            text-align: center;
+            padding: 28px 0 18px 0;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            box-shadow: 0 4px 18px #155a5255;
+        }
+        .brand-logo {
+            width: 78px; height: 78px; border-radius: 16px; object-fit: cover;
+            background: #fff; box-shadow: 0 2px 14px #0006;
+            margin-bottom: 12px; border: 3px solid #e86b22;
+        }
+        .header-bar h1 {
+            margin: 0; font-size: 2.15em; font-weight: 900; letter-spacing: 0.04em;
+            color: #fff;
+            text-shadow: 2px 2px 0 #155a52, 0 2px 14px #e86b22a0;
+        }
+        .header-bar .subtitle {
+            color: #fff; font-size:1.15em; font-weight:500; margin-top:4px; letter-spacing:0.02em;
+            text-shadow: 0 2px 8px #155a52a0;
+        }
+        .stepper {
+            display: flex; justify-content: space-between; align-items: center;
+            margin: 32px 0 36px 0;
+        }
+        .step {
+            background: #f6f8fa;
+            color: #155a52;
+            border-radius: 50px;
+            font-weight: 700;
+            padding: 10px 32px;
+            font-size: 1.09em;
+            border: 2px solid #e86b22;
+            margin: 0 8px;
+            letter-spacing: 0.02em;
+            box-shadow: 0 2px 8px #e86b2220;
+            transition: background 0.16s, color 0.16s;
+        }
+        .step.active {
+            background: #e86b22; color: #fff; border-color: #e86b22;
+        }
+        .order-section {
+            padding: 18px 36px 12px 36px;
+        }
+        .cards-list {
+            display: grid; gap: 18px;
+            grid-template-columns: 1fr;
+            margin-bottom: 15px;
+        }
+        .order-card {
+            background: #f6f8fa;
+            border: 2px solid #155a52;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px #155a5214;
+        }
+        .order-card .item-title {
+            font-weight: 700; color: #e86b22; font-size: 1.09em;
+        }
+        .order-card .item-qty {
+            color: #212832; font-weight: 600; font-size: 1em;
+        }
+        .order-card .item-price {
+            color: #155a52; font-weight: 800; font-size: 1.11em;
+            margin-left: 18px;
+        }
+        .order-total {
+            font-size: 1.23em;
+            color: #fff;
+            background: linear-gradient(90deg, #e86b22 60%, #155a52 100%);
+            font-weight: 800;
+            border-radius: 8px;
+            text-align: right;
+            padding: 13px 22px;
+            margin-bottom: 8px;
+            border: 2px solid #e86b22;
+            letter-spacing: 0.01em;
+            text-shadow: 1px 1px 8px #155a52b0;
+        }
+        form.summary-form {
+            margin: 24px 0 0 0;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .input-group {
+            position: relative; margin-bottom: 22px;
+        }
+        .input-group input,
+        .input-group textarea {
+            width: 100%; border: none; border-bottom: 2px solid #b6e4c5;
+            background: #f6f8fa;
+            padding: 10px 8px 7px 8px;
+            font-size: 1.09em; font-family: inherit;
+            color: #155a52;
+            border-radius: 7px 7px 0 0;
+            transition: border 0.2s, color 0.2s, background 0.22s;
+        }
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none; border-bottom: 2.5px solid #e86b22; color: #155a52; background: #eaf7ec;
+        }
+        .input-group label {
+            position: absolute; left: 10px; top: 10px;
+            font-size: 0.98em; color: #e86b22;
+            background: #ffffff; padding: 0 3px;
+            pointer-events: none; transition: 0.18s;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group textarea:focus + label,
+        .input-group textarea:not(:placeholder-shown) + label {
+            top: -18px; font-size: 0.88em; color: #155a52;
+            background: #ffffff;
+        }
+        .info-box {
+            padding: 22px 32px;
+            background: #f6f8fa;
+            border-radius: 14px; margin-top: 40px;
+            color: #155a52; font-size: 1.07em; font-weight: 600;
+            border: 2px solid #e86b22;
+            box-shadow: 0 4px 18px #e86b2210;
+        }
+        .info-box h2 { color: #e86b22; font-size: 1.13em; margin-bottom: 8px;}
+        .info-box ul { margin: 10px 0 0 1.3em; padding:0;}
+        .info-box li { margin-bottom: 8px; }
+        .info-box a { color:#e86b22;text-decoration:underline; }
+        .back-link {
+            display: inline-block; margin: 24px 0 0 32px; color: #fff; font-weight: 700;
+            text-decoration: none; padding: 12px 24px; border-radius: 8px;
+            background: linear-gradient(90deg, #155a52 70%, #e86b22 100%);
+            border: 2px solid #e86b22; transition: background 0.17s, color 0.18s;
+            box-shadow: 0 2px 10px #155a521a;
+        }
+        .back-link:hover { background: #e86b22; color:#155a52; }
+        .empty { color: #155a52; text-align:center; margin: 32px 0; font-style:italic;}
+        .confirmation-message {
+            margin: 36px auto 0 auto;
+            max-width: 420px;
+            background: #eaf7ec;
+            border-radius: 18px 18px 18px 6px;
+            border: 2.5px solid #e86b22;
+            color: #155a52;
+            box-shadow: 0 2px 12px #e86b2244;
+            font-size: 1.16em;
+            padding: 26px 22px;
+            text-align: left;
+            position: relative;
+            font-weight: 700;
+        }
+        .confirmation-message:before {
+            content: ""; display: block;
+            position: absolute; left: -16px; bottom: 18px;
+            width: 24px; height: 24px; background: #eaf7ec;
+            border-bottom-right-radius: 18px;
+        }
+        .required { color: #e86b22; }
+        .submit-btn {
+            margin-top: 27px; font-size: 1.21em; font-weight: 900;
+            background: linear-gradient(90deg, #e86b22 60%, #155a52 100%);
+            color: #fff; border: none; border-radius: 8px;
+            padding: 15px 0; cursor: pointer; box-shadow: 0 2px 14px #e86b2222;
+            letter-spacing: 0.02em;
+            transition: background 0.18s, color 0.18s;
+        }
+        .submit-btn:hover { background: linear-gradient(90deg, #155a52 60%, #e86b22 100%); color: #fff;}
+        @media (max-width:700px) {
+            .summary-wrapper { max-width:99vw; margin: 34px auto 14px auto;}
+            .order-section, .info-box { padding: 11px 7vw; }
+        }
+        @media (max-width:500px) {
+            .stepper { flex-direction: column; gap: 5px; }
+            .order-section, .info-box { padding: 11px 4vw; }
+            .confirmation-message { padding: 14px 8px; }
+            .cards-list { gap: 10px; }
+            .header-bar h1 { font-size: 1.21em;}
+        }
+    </style>
+</head>
+<body>
+    <div class="summary-wrapper">
+        <div class="header-bar">
+            <img src="image/LOGO.png" alt="IKEKEVE MARTIA Logo" class="brand-logo" loading="lazy">
+            <h1>IKEKEVE MARTIA RETAIL</h1>
+            <div class="subtitle">Order Summary & Confirmation</div>
+        </div>
+        <div class="stepper">
+            <div class="step">Cart</div>
+            <div class="step">Shipping</div>
+            <div class="step">Payment</div>
+            <div class="step active">Review & Submit</div>
+        </div>
+        <section class="order-section">
+            <div class="cards-list" id="orderCards"></div>
+            <div class="order-total" id="orderTotal"></div>
+            <form class="summary-form" id="summaryForm" autocomplete="off" method="POST" action="#">
+                <div class="input-group">
+                    <input type="email" id="emailField" name="email" maxlength="60" required placeholder=" " autocomplete="email">
+                    <label for="emailField">Email Address <span class="required">*</span></label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="nameField" name="name" maxlength="40" required placeholder=" ">
+                    <label for="nameField">Full Name <span class="required">*</span></label>
+                </div>
+                <div class="input-group">
+                    <textarea id="addrField" name="address" maxlength="120" required placeholder=" "></textarea>
+                    <label for="addrField">Complete Address <span class="required">*</span></label>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="input-group" style="flex:1;">
+                        <input type="text" id="cityField" name="city" maxlength="30" required placeholder=" ">
+                        <label for="cityField">City <span class="required">*</span></label>
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <input type="text" id="provinceField" name="province" maxlength="30" required placeholder=" ">
+                        <label for="provinceField">Province <span class="required">*</span></label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phoneField" name="phone" maxlength="13" pattern="^\+639\d{9}$" placeholder=" " required>
+                    <label for="phoneField">Mobile Number <span class="required">*</span></label>
+                </div>
+                <div class="input-group">
+                    <select name="payment" id="paymentField" required style="width:100%;padding:10px 8px;">
+                        <option value="">Select Payment Method</option>
+                        <option value="GCASH">GCASH</option>
+                        <option value="PAYPAL">PAYPAL</option>
+                        <option value="PAYMAYA">PAYMAYA</option>
+                        <option value="BDO">BDO</option>
+                        <option value="BPI">BPI</option>
+                        <option value="CASH ON DELIVERY">Cash on Delivery</option>
+                    </select>
+                    <label for="paymentField" style="top:-18px;font-size:0.88em;color:#155a52;">Payment Method <span class="required">*</span></label>
+                </div>
+                <input type="hidden" name="order_details" id="orderDetailsHidden">
+                <button type="submit" class="submit-btn">Submit Order</button>
+            </form>
+            <div class="confirmation-message" id="confirmMsg" style="display:none;">
+                <span style="font-size:1.22em; font-weight:700;">✅ Order Received!</span><br><br>
+                Your order has been sent to our team.<br>
+                One of our specialists will reach out to you shortly by SMS or email to confirm your order details—including product colors, availability, and special requests.<br>
+                <br>
+                Please review and verify all details when contacted.<br>
+                After confirmation, a secure payment link will be sent to your chosen channel.<br>
+                <span style="color:#e86b22; font-weight:700;">
+                    Kindly complete your payment within <b>24 hours</b> to secure your order.
+                </span><br>
+                Unpaid orders after this period may be cancelled automatically.<br>
+                <br>
+                Thank you for choosing IKEKEVE MARTIA RETAIL! We look forward to serving you.
+            </div>
+        </section>
+        <aside class="info-box">
+            <h2>Order Process & Important Reminders</h2>
+            <ul>
+                <li><b>⏰ Business Hours:</b> Our team is available Monday to Saturday, 8:00 AM – 6:00 PM. Orders placed outside these hours will be processed the next business day.</li>
+                <li><b>🔎 Order Verification:</b> Once you submit your order, our staff will contact you to check specific details, including product color, stock status, and any preferences. Please respond promptly to confirm your order.</li>
+                <li><b>💳 Payment Instructions:</b> After confirmation, a payment link will be sent to your email or mobile number. <b>Complete your payment within 24 hours</b> to avoid automatic cancellation.</li>
+                <li><b>📦 Shipping & Delivery:</b> Orders are shipped after payment is received. Delivery times may vary depending on your location and courier options. Tracking details will be provided as soon as available.</li>
+                <li><b>🛎 Customer Support:</b> For any questions or assistance, contact us at <a href="mailto:contact@ikekeve-mart.com">contact@ikekeve-mart.com</a> or call <b>+63 954 091 3691</b>. We're ready to help you every step of the way.</li>
+            </ul>
+            <div style="margin-top:12px;">
+                <b>IKEKEVE MARTIA RETAIL – Quality essentials, friendly service, delivered with care.</b>
+            </div>
+        </aside>
+        <a href="index.html" class="back-link">← Back to Shop</a>
+    </div>
+    <script>
+        // Load cart from localStorage
+        const cart = JSON.parse(localStorage.getItem('ikekeve_cart') || "[]");
+        const orderCardsDiv = document.getElementById('orderCards');
+        const orderTotalDiv = document.getElementById('orderTotal');
+        let total = 0;
+        if (!cart.length) {
+            orderCardsDiv.innerHTML = "<div class='empty'>Your cart is empty.</div>";
+            orderTotalDiv.textContent = "";
+            document.getElementById('summaryForm').style.display = "none";
+        } else {
+            let detailsText = "";
+            cart.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'order-card';
+                card.innerHTML = `
+                    <div>
+                        <span class="item-title">${item.name}</span>
+                        <span class="item-qty">×${item.qty}</span>
+                    </div>
+                    <span class="item-price">₱${(parseFloat(item.price)*item.qty).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                `;
+                orderCardsDiv.appendChild(card);
+                total += parseFloat(item.price)*item.qty;
+                detailsText += `${item.name} x ${item.qty} - ₱${(parseFloat(item.price)*item.qty).toLocaleString(undefined,{minimumFractionDigits:2})}\n`;
+            });
+            orderTotalDiv.textContent = `Total: ₱${total.toLocaleString(undefined,{minimumFractionDigits:2})}`;
+            document.getElementById('orderDetailsHidden').value = detailsText + `Total: ₱${total.toLocaleString(undefined,{minimumFractionDigits:2})}`;
+        }
+
+        document.getElementById('summaryForm').onsubmit = function(e){
+            e.preventDefault();
+            const name = document.getElementById('nameField').value.trim();
+            const address = document.getElementById('addrField').value.trim();
+            const city = document.getElementById('cityField').value.trim();
+            const province = document.getElementById('provinceField').value.trim();
+            const phone = document.getElementById('phoneField').value.trim();
+            const payment = document.getElementById('paymentField').value.trim();
+            if (!name || !address || !city || !province || !phone || !payment) {
+                alert("Please fill out all required fields.");
+                return false;
+            }
+            if (!/^\+639\d{9}$/.test(phone)) {
+                alert("Use Philippine mobile format: +639XXXXXXXXX");
+                document.getElementById('phoneField').focus();
+                return false;
+            }
+            setTimeout(function() {
+                document.getElementById('summaryForm').style.display = "none";
+                document.getElementById('confirmMsg').style.display = "";
+                localStorage.removeItem('ikekeve_cart');
+                orderCardsDiv.innerHTML = "<div class='empty'>Your cart is empty.</div>";
+                orderTotalDiv.textContent = "";
+            }, 1200);
+        };
+    </script>
+</body>
+</html>
