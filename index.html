@@ -452,6 +452,8 @@
       margin: 8px 5px 0 0;
       transition: background .13s;
       outline: none;
+      text-decoration: none;
+      display: inline-block;
     }
     .cart-action-btn:hover {
       background: var(--color-main);
@@ -562,10 +564,6 @@
         <a href="#products">Products</a>
         <a href="#cart">Cart</a>
         <a href="#contact">Contact</a>
-        <a href="order-summary.html">Checkout</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-        <a href="refund-policy.html">Refund Policy</a>
       </div>
       <button class="nav-burger" aria-label="Open Menu" onclick="toggleMobileMenu()">
         <span></span><span></span><span></span>
@@ -581,10 +579,6 @@
       <a href="#products" onclick="closeMobileMenu()">Products</a>
       <a href="#cart" onclick="closeMobileMenu()">Cart</a>
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-      <a href="order-summary.html" onclick="closeMobileMenu()">Checkout</a>
-      <a href="privacy-policy.html" onclick="closeMobileMenu()">Privacy Policy</a>
-      <a href="terms.html" onclick="closeMobileMenu()">Terms of Service</a>
-      <a href="refund-policy.html" onclick="closeMobileMenu()">Refund Policy</a>
     </div>
   </nav>
 
@@ -652,7 +646,6 @@
     <div class="cart-empty-msg" id="cartEmptyMsg" style="display:none;">Your cart is empty.</div>
     <div class="cart-total" id="cartTotalRow"></div>
     <button class="cart-action-btn" onclick="checkout()" aria-label="Checkout">Checkout</button>
-    <a href="order-summary.html" class="cart-action-btn" style="display:inline-block;text-decoration:none;">Order Summary</a>
     <button class="cart-action-btn" onclick="emptyCart()" aria-label="Empty Cart">Empty Cart</button>
     <button class="cart-action-btn" onclick="closeCart()" aria-label="Close">Close</button>
   </aside>
@@ -670,7 +663,7 @@
         <a href="privacy-policy.html">Privacy Policy</a> |
         <a href="terms.html">Terms of Service</a> |
         <a href="refund-policy.html">Refund Policy</a> |
-        <a href="order-summary.html">Checkout / Order Summary</a>
+        <a href="order-summary.html">Checkout</a>
       </div>
       <div class="footer-copy">
         &copy; 2025 IKEKEVE MARTIA RETAIL. All rights reserved.
@@ -701,16 +694,19 @@
     window.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll('.mobile-menu a').forEach(function(link){
         link.addEventListener('click', function(e){
-          var targetId = link.getAttribute('href').replace('#','');
-          var target = document.getElementById(targetId);
-          if(target) target.scrollIntoView({behavior:'smooth'});
+          var href = link.getAttribute('href');
+          if(href && href.startsWith("#")) {
+            var targetId = href.replace('#','');
+            var target = document.getElementById(targetId);
+            if(target) target.scrollIntoView({behavior:'smooth'});
+          }
         });
       });
       document.querySelectorAll('.nav-links a').forEach(function(link){
-        // Only scroll for hash links
-        if (link.getAttribute('href').startsWith("#")) {
+        var href = link.getAttribute('href');
+        if(href && href.startsWith("#")) {
           link.addEventListener('click', function(e){
-            var targetId = link.getAttribute('href').replace('#','');
+            var targetId = href.replace('#','');
             var target = document.getElementById(targetId);
             if(target) target.scrollIntoView({behavior:'smooth'});
           });
