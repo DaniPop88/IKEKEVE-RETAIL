@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IKEKEVE MARTIA RETAIL – Essentials for Everyday Living</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IKEKEVE MARTIA RETAIL – Groceries, home, personal care, and office supplies in Quezon City. Professional, responsive, and trusted Filipino-owned store.">
+  <link rel="icon" type="image/png" href="image/FAVICON.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-main: #155a52;
+      --color-accent: #e86b22;
+      --color-bg: #f6f8fa;
+      --color-light: #fff;
+      --color-dark: #212832;
+      --color-border: #e1e5ee;
+      --color-success: #24ae5f;
+      --color-danger: #e63c3c;
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(21,90,82,0.10);
+      --max-width: 1100px;
+      --nav-height: 64px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-main);
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .navbar {
+      background: var(--color-light);
+      border-bottom: 1.5px solid var(--color-border);
+      box-shadow: var(--shadow);
+      height: var(--nav-height);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .navbar-inner {
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img {
+      height: 44px;
+      width: 44px;
+      border-radius: 10px;
+      border: 2px solid var(--color-accent);
+      background: var(--color-light);
+      box-shadow: 0 2px 8px #155a5233;
+      object-fit: cover;
+    }
+    .nav-brand {
+      font-size: 1.15em;
+      font-weight: 800;
+      color: var(--color-accent);
+      letter-spacing: .03em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1em;
+    }
+    .nav-links a {
+      color: var(--color-main);
+      text-decoration: none;
+      padding: 9px 0;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border .15s;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--color-accent);
+      border-bottom: 2px solid var(--color-accent);
+    }
+    .nav-cart-btn {
+      background: var(--color-accent);
+      color: var(--color-light);
+      border: none;
+      border-radius: 100px;
+      padding: 7px 20px 7px 14px;
+      font-size: 1em;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background .13s;
+      box-shadow: 0 3px 14px #e86b2230;
+    }
+    .nav-cart-btn .cart-qty {
+      background: var(--color-light);
+      color: var(--color-accent);
+      border-radius: 100px;
+      font-size: 0.97em;
+      font-weight: 800;
+      padding: 1px 9px;
+      margin-left: 2px;
+    }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 6px;
+      padding: 7px;
+      margin-left: 14px;
+    }
+    .nav-burger span {
+      display: block;
+      width: 26px;
+      height: 4px;
+      background: var(--color-main);
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .mobile-menu-bg {
+      display: none;
+      position: fixed;
+      top: var(--nav-height); left: 0; right: 0; bottom: 0;
+      background: #155a52cc;
+      z-index: 1100;
+      opacity: 1;
+    }
+    .mobile-menu-bg.show { display: block; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height); left: 0; right: 0;
+      background: var(--color-light);
+      flex-direction: column;
+      box-shadow: 0 4px 24px #155a5213;
+      border-radius: 0 0 13px 13px;
+      z-index: 1200;
+      align-items: flex-start;
+      width: 100vw;
+      height: auto;
+      justify-content: flex-start;
+      padding: 0;
+    }
+    .mobile-menu.show { display: flex; }
+    .mobile-menu a {
+      width: 100vw; max-width: 100vw; text-align: left;
+      padding: 16px 0 16px 30px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-main);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1em;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a:focus {
+      color: var(--color-accent);
+      background: #f8faff;
+    }
+    .hero {
+      min-height: 420px;
+      width: 100%;
+      background: linear-gradient(120deg, var(--color-main) 68%, var(--color-accent) 100%);
+      padding-top: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      text-align: center;
+    }
+    .hero-logo {
+      margin-bottom: 15px;
+      margin-top: 32px;
+    }
+    .hero-logo img {
+      height: 98px;
+      width: 98px;
+      border-radius: 20px;
+      border: 4px solid var(--color-light);
+      object-fit: cover;
+      box-shadow: 0 6px 32px #0002;
+      background: var(--color-light);
+    }
+    .hero-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: var(--color-accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 15px;
+      text-shadow: 4px 4px 16px #155a5255;
+    }
+    .hero-subtitle {
+      font-size: 1.18em;
+      color: var(--color-light);
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-shadow: 1px 2px 12px #155a5255;
+    }
+    .hero-cta {
+      background: var(--color-light);
+      color: var(--color-accent);
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 1.06em;
+      padding: 11px 28px;
+      box-shadow: 0 4px 18px #fff5;
+      display: inline-block;
+      margin-top: 7px;
+      text-decoration: none;
+      transition: background .13s, color .13s;
+    }
+    .hero-cta:hover, .hero-cta:focus {
+      background: var(--color-accent);
+      color: var(--color-light);
+    }
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2vw 36px 2vw;
+      margin-top: -36px;
+    }
+    .welcome-section {
+      background: var(--color-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 38px auto 0 auto;
+      padding: 32px 28px 28px 28px;
+      max-width: 780px;
+      border: 1.2px solid var(--color-border);
+      text-align: center;
+    }
+    .welcome-title {
+      font-weight: 800;
+      font-size: 1.2em;
+      color: var(--color-accent);
+      margin: 0 0 18px 0;
+      letter-spacing: .02em;
+    }
+    .welcome-body {
+      color: var(--color-dark);
+      font-size: 1.08em;
+      font-weight: 400;
+      margin: 0 auto 13px auto;
+      text-align: center;
+      line-height: 1.75;
+      max-width: 99%;
+      padding: 0 0 2px 0;
+    }
+    .about-section {
+      background: var(--color-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 38px auto 0 auto;
+      padding: 32px 28px 28px 28px;
+      max-width: 780px;
+      border: 1.2px solid var(--color-border);
+      text-align: center;
+    }
+    .about-title {
+      font-weight: 800;
+      font-size: 1.17em;
+      color: var(--color-accent);
+      margin-bottom: 15px;
+    }
+    .about-body {
+      color: var(--color-dark);
+      font-size: 1.07em;
+      font-weight: 400;
+      margin: 0 auto 12px auto;
+      text-align: center;
+      line-height: 1.7;
+      max-width: 99%;
+    }
+    .about-list {
+      text-align: left;
+      margin: 16px auto 0 auto;
+      max-width: 86%;
+      font-size: 1em;
+      color: var(--color-main);
+      padding-left: 1.3em;
+    }
+    .about-list li {
+      margin-bottom: 7px;
+    }
+    .products-section {
+      background: var(--color-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 38px auto 0 auto;
+      padding: 30px 20px 21px 20px;
+      max-width: 1100px;
+      border: 1.2px solid var(--color-border);
+      text-align: center;
+    }
+    .products-title {
+      font-size: 1.15em;
+      font-weight: 800;
+      color: var(--color-main);
+      margin-bottom: 16px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .product-card {
+      background: #f8faff;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #155a520a;
+      padding: 18px 10px 18px 10px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 235px;
+      max-width: 310px;
+      margin: 0 auto;
+    }
+    .product-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 9px;
+      background: #e1e5ee;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 9px;
+    }
+    .product-name {
+      font-weight: 700;
+      color: var(--color-main);
+      font-size: 1.06em;
+      margin-bottom: 5px;
+    }
+    .product-desc {
+      font-size: .98em;
+      color: var(--color-dark);
+      margin-bottom: 5px;
+      opacity: .82;
+    }
+    .product-price {
+      color: var(--color-success);
+      font-size: 1.02em;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+    .product-stock {
+      font-size: .97em;
+      color: var(--color-danger);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .add-cart-btn {
+      background: var(--color-accent);
+      color: var(--color-light);
+      border: none;
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: .97em;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: auto;
+      transition: background .12s;
+      box-shadow: 0 2px 9px #e86b2222;
+      outline: none;
+    }
+    .add-cart-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+    .cart-section {
+      background: var(--color-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 38px auto 0 auto;
+      padding: 24px 20px 18px 20px;
+      max-width: 700px;
+      border: 1.2px solid var(--color-border);
+      text-align: center;
+    }
+    .cart-title {
+      font-size: 1.09em;
+      font-weight: 800;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+    }
+    .cart-content {
+      margin-bottom: 14px;
+    }
+    .cart-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+      text-align: left;
+      font-size: .99em;
+    }
+    .cart-list li {
+      padding: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .cart-total {
+      font-weight: 800;
+      color: var(--color-success);
+      margin-top: 7px;
+      margin-bottom: 7px;
+    }
+    .cart-empty-msg {
+      color: #aaa;
+      font-style: italic;
+      margin: 13px 0;
+    }
+    .cart-action-btn {
+      background: var(--color-accent);
+      color: var(--color-light);
+      font-weight: 800;
+      border: none;
+      border-radius: 100px;
+      font-size: .97em;
+      padding: 8px 15px;
+      cursor: pointer;
+      margin: 8px 5px 0 0;
+      transition: background .13s;
+      outline: none;
+    }
+    .cart-action-btn:hover {
+      background: var(--color-main);
+      color: var(--color-light);
+    }
+    footer {
+      background: var(--color-main);
+      color: var(--color-light);
+      padding: 40px 8px 24px 8px;
+      margin-top: 48px;
+      font-size: 1.04em;
+      font-family: 'Inter', Arial, sans-serif;
+      border-top: 3px solid var(--color-accent);
+    }
+    .footer-main {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 38px;
+      width: 38px;
+      border-radius: 8px;
+      border: 1.5px solid var(--color-accent);
+      object-fit: cover;
+      margin-bottom: 7px;
+    }
+    .footer-brand {
+      font-weight: 800;
+      font-size: 1.09em;
+      color: var(--color-accent);
+      margin-bottom: 7px;
+      letter-spacing: .03em;
+    }
+    .footer-contact {
+      margin-bottom: 16px;
+      color: var(--color-light);
+      font-size: 1em;
+    }
+    .footer-contact a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      transition: color .13s;
+    }
+    .footer-contact a:hover {
+      color: var(--color-light);
+    }
+    .footer-links {
+      margin-top: 10px;
+      font-size: .98em;
+      color: var(--color-light);
+    }
+    .footer-links a {
+      color: var(--color-accent);
+      margin: 0 6px;
+      text-decoration: underline;
+      transition: color .13s;
+    }
+    .footer-links a:hover {
+      color: var(--color-light);
+    }
+    .footer-copy {
+      color: #dbe4f8;
+      font-size: 0.97em;
+      margin-top: 14px;
+      margin-bottom: 3px;
+    }
+    @media (max-width: 900px) {
+      .navbar-inner { padding: 0 8px; }
+      main { padding: 0 1vw 24px 1vw; }
+      .welcome-section, .about-section, .products-section, .cart-section { padding: 20px 5px 16px 5px; }
+      .product-grid { gap: 12px; }
+    }
+    @media (max-width: 700px) {
+      .navbar { height: 54px; }
+      .navbar-inner { height: 54px; }
+      .hero-logo img { height: 75px; width: 75px; }
+      .hero-title { font-size: 1.55em; }
+      .welcome-section, .about-section, .products-section, .cart-section { padding: 14px 2vw 12px 2vw; }
+      .footer-main { font-size: .95em; }
+      .product-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .navbar-inner { flex-direction: row; }
+      .welcome-section, .about-section, .products-section, .cart-section { max-width: 99vw; }
+      .hero-logo { margin-top: 18px; margin-bottom: 8px; }
+      .hero-title { font-size: 1.21em; }
+      .footer-main { font-size: .93em; }
+      .product-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      .product-card { min-height: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">
+        <img src="image/LOGO.png" alt="IKEKEVE MARTIA Logo">
+        <span class="nav-brand">IKEKEVE MARTIA</span>
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="#welcome">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#products">Products</a>
+        <a href="#cart">Cart</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="nav-burger" aria-label="Open Menu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+      <button class="nav-cart-btn" onclick="showCart()" aria-label="View Cart">
+        <span>🛒</span> Cart <span class="cart-qty" id="cartQty">0</span>
+      </button>
+    </div>
+    <div class="mobile-menu-bg" id="mobileMenuBg"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#welcome" onclick="closeMobileMenu()">Home</a>
+      <a href="#about" onclick="closeMobileMenu()">About Us</a>
+      <a href="#products" onclick="closeMobileMenu()">Products</a>
+      <a href="#cart" onclick="closeMobileMenu()">Cart</a>
+      <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="welcome">
+    <div class="hero-logo">
+      <img src="image/LOGO.png" alt="IKEKEVE MARTIA Logo" width="98" height="98">
+    </div>
+    <div class="hero-title">Welcome to IKEKEVE MARTIA RETAIL!</div>
+    <div class="hero-subtitle">Essentials for everyday living in Quezon City</div>
+    <a href="#products" class="hero-cta">Shop Now</a>
+  </section>
+  <main>
+    <section class="welcome-section" id="store-info">
+      <div class="welcome-title">IKEKEVE MARTIA RETAIL</div>
+      <div class="welcome-body">
+        At <strong>IKEKEVE MARTIA</strong>, we offer a wide selection of essentials to meet your daily needs. Whether you're looking for groceries, home supplies, or personal care items, we've got you covered.<br><br>
+        <b>Visit us today at:</b><br>
+        #104 Banaba Street, Barangay Commonwealth, Quezon City, NCR
+      </div>
+    </section>
+    <section class="about-section" id="about">
+      <div class="about-title">About Us</div>
+      <div class="about-body">
+        Founded in <b>2020</b>, <b>IKEKEVE MARTIA RETAIL</b> has been serving the Quezon City community with high-quality essentials and unmatched customer service. We are proud to be a Filipino-owned business, offering a wide range of products to cater to all your household needs.<br><br>
+        <b>Our mission:</b> To provide affordable, reliable, and high-quality essentials that improve your everyday life.<br>
+        <ul class="about-list">
+          <li><b>Customer First:</b> We are dedicated to serving you with a smile and making every shopping experience convenient and pleasant.</li>
+          <li><b>Quality Products:</b> We only offer the best products from trusted brands to ensure that you get the most value for your money.</li>
+          <li><b>Community Commitment:</b> We believe in giving back to our local community through excellent service and active engagement.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="products-section" id="products">
+      <div class="products-title">Products We Offer</div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+    <section class="cart-section" id="cart">
+      <div class="cart-title">Your Cart</div>
+      <div class="cart-content" id="cartContent">
+        <div class="cart-empty-msg">Your cart is empty.</div>
+      </div>
+      <button class="cart-action-btn" onclick="showCart()">View Full Cart</button>
+    </section>
+    <section class="welcome-section" id="contact">
+      <div class="welcome-title">Contact Us</div>
+      <div class="welcome-body">
+        <b>Location:</b> #104 Banaba Street, Barangay Commonwealth, Quezon City, NCR<br>
+        <b>Phone:</b> +63 954 091 3691<br>
+        <b>Email:</b> <a href="mailto:contact@ikekeve-mart.com">contact@ikekeve-mart.com</a><br>
+        <b>Business Hours:</b>
+        <br>Monday to Saturday: 8:00 AM – 6:00 PM
+        <br>Sunday: Closed
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Cart (appears on click) -->
+  <div class="mobile-menu-bg" id="cartModalBg" style="display:none;"></div>
+  <aside class="cart-section" id="cartModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2000; max-width:400px; width:96vw; box-shadow:0 8px 38px #155a5233,0 0 0 5px #e86b2222;">
+    <div class="cart-title">🛒 Cart <span class="cart-qty" id="cartModalQty">0</span></div>
+    <ul class="cart-list" id="cartItems"></ul>
+    <div class="cart-empty-msg" id="cartEmptyMsg" style="display:none;">Your cart is empty.</div>
+    <div class="cart-total" id="cartTotalRow"></div>
+    <button class="cart-action-btn" onclick="checkout()" aria-label="Checkout">Checkout</button>
+    <button class="cart-action-btn" onclick="emptyCart()" aria-label="Empty Cart">Empty Cart</button>
+    <button class="cart-action-btn" onclick="closeCart()" aria-label="Close">Close</button>
+  </aside>
+  <footer>
+    <div class="footer-main">
+      <div class="footer-logo">
+        <img src="image/LOGO.png" alt="IKEKEVE MARTIA Logo">
+      </div>
+      <div class="footer-brand">IKEKEVE MARTIA RETAIL</div>
+      <div class="footer-contact">
+        #104 Banaba Street, Barangay Commonwealth, Quezon City, NCR, Philippines<br>
+        <b>Phone:</b> +63 954 091 3691 | <b>Email:</b> <a href="mailto:contact@ikekeve-mart.com">contact@ikekeve-mart.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms of Service</a> |
+        <a href="refund-policy.html">Refund Policy</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2025 IKEKEVE MARTIA RETAIL. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Responsive Nav
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('show');
+      document.getElementById('mobileMenuBg').classList.toggle('show');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('show');
+      document.getElementById('mobileMenuBg').classList.remove('show');
+    }
+    window.addEventListener('resize', function() {
+      if(window.innerWidth > 600) closeMobileMenu();
+    });
+    document.addEventListener('click', function(e) {
+      var mm = document.getElementById('mobileMenu');
+      var bg = document.getElementById('mobileMenuBg');
+      var burger = document.querySelector('.nav-burger');
+      if(mm.classList.contains('show') && !mm.contains(e.target) && !burger.contains(e.target) && !bg.contains(e.target)) closeMobileMenu();
+    });
+
+    // Smooth scroll
+    window.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.mobile-menu a').forEach(function(link){
+        link.addEventListener('click', function(e){
+          var targetId = link.getAttribute('href').replace('#','');
+          var target = document.getElementById(targetId);
+          if(target) target.scrollIntoView({behavior:'smooth'});
+        });
+      });
+      document.querySelectorAll('.nav-links a').forEach(function(link){
+        link.addEventListener('click', function(e){
+          var targetId = link.getAttribute('href').replace('#','');
+          var target = document.getElementById(targetId);
+          if(target) target.scrollIntoView({behavior:'smooth'});
+        });
+      });
+    });
+
+    // Demo Product Data
+    function randQty() { return Math.floor(Math.random()*13)+3; }
+    function randPrice(base) { return (base + Math.floor(Math.random()*200) + Math.random()).toFixed(2); }
+    const products = [
+      {
+        name: "Fresh Bananas",
+        price: randPrice(29),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Fresh and ripe, perfect for snacks."
+      },
+      {
+        name: "Multi-Surface Cleaner",
+        price: randPrice(59),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Effective cleaning for all surfaces."
+      },
+      {
+        name: "Gentle Facial Wash",
+        price: randPrice(109),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Mild formula for daily use."
+      },
+      {
+        name: "Notebook Pack (3pcs)",
+        price: randPrice(49),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Ideal for school and office."
+      },
+      {
+        name: "Kitchen Towels",
+        price: randPrice(39),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Absorbent and durable."
+      },
+      {
+        name: "Shampoo & Conditioner Set",
+        price: randPrice(129),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Nourishing care for hair."
+      },
+      {
+        name: "Canned Tuna (Pack)",
+        price: randPrice(99),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "High-protein, ready to eat."
+      },
+      {
+        name: "Ballpoint Pens (6pcs)",
+        price: randPrice(29),
+        qty: randQty(),
+        img: "image/placeholder.png",
+        desc: "Smooth writing experience."
+      }
+    ];
+    let cart = [];
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      products.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-img">
+            <img src="${item.img}" alt="Product image placeholder" />
+          </div>
+          <div class="product-name">${item.name}</div>
+          <div class="product-desc">${item.desc}</div>
+          <div class="product-price">₱${parseFloat(item.price).toLocaleString()}</div>
+          <div class="product-stock">Qty: ${item.qty}</div>
+          <button class="add-cart-btn" onclick="addToCart(${idx})" ${item.qty === 0?'disabled':''}>Add to Cart</button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+    function addToCart(idx) {
+      let prod = products[idx];
+      if(prod.qty < 1) return alert("Out of stock!");
+      let existing = cart.find(item => item.name === prod.name);
+      if(existing) {
+        if(existing.qty < prod.qty) existing.qty++;
+        else return alert("No more stock available!");
+      } else {
+        cart.push({
+          name: prod.name,
+          price: prod.price,
+          qty: 1,
+          stock: prod.qty,
+          desc: prod.desc,
+        });
+      }
+      updateCart();
+    }
+    function updateCart() {
+      let totalCount = 0, totalAmount = 0;
+      cart.forEach(item => { totalCount += item.qty; totalAmount += parseFloat(item.price)*item.qty; });
+      document.getElementById('cartQty').textContent = totalCount;
+      document.getElementById('cartModalQty').textContent = totalCount;
+      const cartContent = document.getElementById('cartContent');
+      if(cart.length === 0) {
+        cartContent.innerHTML = '<div class="cart-empty-msg">Your cart is empty.</div>';
+      } else {
+        let html = '<ul class="cart-list">';
+        cart.forEach(item => {
+          html += `<li>
+            <span>${item.name} × ${item.qty}</span>
+            <span style="color:var(--color-success);font-weight:800;">₱${(parseFloat(item.price)*item.qty).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+          </li>`;
+        });
+        html += `<li class="cart-total">
+          Total: ₱${totalAmount.toLocaleString(undefined,{minimumFractionDigits:2})}
+        </li></ul>`;
+        cartContent.innerHTML = html;
+      }
+
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = '';
+      if(cart.length === 0) {
+        document.getElementById('cartEmptyMsg').style.display = '';
+        document.getElementById('cartTotalRow').textContent = '';
+      } else {
+        document.getElementById('cartEmptyMsg').style.display = 'none';
+        cart.forEach((item, idx) => {
+          let li = document.createElement("li");
+          li.innerHTML = `<span>${item.name} × ${item.qty} <span style="color:var(--color-danger);font-size:.89em;">(Stock:${item.stock})</span> - ₱${(parseFloat(item.price)*item.qty).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+            <button class="cart-action-btn" aria-label="Remove ${item.name} from cart" onclick="removeCartItem(${idx})">&times;</button>`;
+          cartItems.appendChild(li);
+        });
+        document.getElementById('cartTotalRow').textContent = `Grand Total: ₱${totalAmount.toLocaleString(undefined,{minimumFractionDigits:2})}`;
+      }
+      localStorage.setItem('ikekeve_cart', JSON.stringify(cart));
+    }
+    function removeCartItem(idx) {
+      cart.splice(idx, 1);
+      updateCart();
+    }
+    function showCart() {
+      document.getElementById("cartModal").style.display = "block";
+      document.getElementById("cartModalBg").style.display = "block";
+    }
+    function closeCart() {
+      document.getElementById("cartModal").style.display = "none";
+      document.getElementById("cartModalBg").style.display = "none";
+    }
+    function checkout() {
+      if(cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      localStorage.setItem('ikekeve_cart', JSON.stringify(cart));
+      alert("Order summary coming soon! (This is a demo.)");
+      closeCart();
+    }
+    function emptyCart() {
+      if(!confirm("Are you sure you want to empty your cart?")) return;
+      cart = [];
+      updateCart();
+    }
+    document.getElementById("cartModalBg").onclick = closeCart;
+    window.addEventListener("DOMContentLoaded", function() {
+      renderProducts();
+      const savedCart = localStorage.getItem('ikekeve_cart');
+      if(savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCart();
+      }
+    });
+  </script>
+</body>
+</html>
